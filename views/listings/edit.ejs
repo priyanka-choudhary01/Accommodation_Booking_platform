@@ -1,0 +1,128 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wonderlust</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/rating.css">
+<link rel="stylesheet" href="/css/style.css">
+ <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+
+</head>
+<body>
+ <%- include("../includes/navbar.ejs") %>
+  <div class="container">
+     <%- include("../includes/flash.ejs") %>
+    
+    <body>
+  <div class="row">
+  <div class="cols-8 offset-2">
+    <br>
+    <br>
+    <h3>Edit your Listing</h3>
+    <br><br>
+
+  <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" 
+    novalidate class="needs-validation" enctype="multipart/form-data">
+  <div class="mb-3">
+  <label for="title" class="form-label">Title</label>
+<input name="title" value="<%=listing.title%>"
+ type="text" class="form-control" required>
+ <div class="invalid-feedback">Title looks good!</div>
+</div>
+
+<div class="mb-3">
+  <label for="description" class="form-label">Description</label>
+<textarea name="description" class="form-control" required>
+  <%=listing.description%></textarea>
+   <div class="invalid-feedback">Please enter a short description</div>
+</div>
+
+<diV class="mb-3">
+  Original Listing Image<br/>
+  <img src="<%= originalImageUrl%>" width="200px" height="200px"/>
+</diV>
+
+<div class="mb-3">
+<label for="image" class="form-label">
+  Upload New Image</label>
+<input name="listing[image]" 
+value="<%=listing.image.url%>" 
+type="file" class="form-control"
+>
+<div class="invalid-feedback">
+  Please enter a valid link</div>
+</div>
+
+<div class="row">
+<div class="mb-3 col-md-4">
+  <label for="price" class="form-label">Price</label>
+<input name="price" value="<%=listing.price%>"
+ type="number" class="form-control" required>
+ <div class="invalid-feedback">Price should be valid</div>
+</div>
+
+<div class="mb-3 col-md-8">
+  <label for="country" class="form-label">Country</label>
+<input name="country" value="<%=listing.country%>" 
+type="text" class="form-control" required>
+<div class="invalid-feedback">Country name should be valid</div>
+</div>
+
+</div>
+
+<div class="mb-3">
+<label for="location" class="form-label">Location</label>
+<input name="location" value="<%=listing.location.toUpperCase()%>" 
+type="text" class="form-control" required>
+<div class="invalid-feedback">Location should be valid</div>
+</div>
+
+<div class="mb-3">
+  <label for="category" class="form-label" >Category</label>
+<select name="category" class="form-control" required>
+    <!-- <option value="" disabled selected>Select category</option> -->
+    <option value="Trending" <%= listing.Category === "Trending" ? "selected" : "" %>>Trending</option>
+    <option value="Rooms" <%= listing.category === "Rooms" ? "selected" : "" %>>Rooms</option>
+    <option value="Iconic-city" <%= listing.category === "Iconic-city" ? "selected" : "" %>>Iconic-city</option>
+    <option value="Mountains" <%= listing.category === "Mountains" ? "selected" : "" %>>Mountains</option>
+    <option value="Castles" <%= listing.category === "Castles" ? "selected" : "" %>>Castles</option>
+    <option value="Amazing-pools" <%= listing.category === "Amazing-pools" ? "selected" : "" %>>Amazing-pools</option>
+    <option value="Camping" <%= listing.category === "Camping" ? "selected" : "" %>>Camping</option>
+    <option value="Arctic" <%= listing.category === "Arctic" ? "selected" : "" %>>Arctic</option>
+    <option value="Farms" <%= listing.category === "Farms" ? "selected" : "" %>>Farms</option>
+    <option value="Dome" <%= listing.category === "Dome" ? "selected" : "" %>>Dome</option>
+    <option value="Boats" <%= listing.category === "Boats" ? "selected" : "" %>>Boats</option>
+</select>
+<div class="invalid-feedback">Location should be Selected</Select></div>
+</div>
+<button class="btn btn-danger edit-btn ">Edit</button> 
+</div>
+</div>
+</form>
+</body>
+
+
+
+    </div>
+   <%- include("../includes/footer.ejs") %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  <script src="../js/index.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+</body>
+</html>
+
+
+

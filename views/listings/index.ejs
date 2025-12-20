@@ -1,0 +1,182 @@
+<% layout("/layouts/boilerplate")%>
+
+   <style>
+      .filters {
+         display: flex;
+         flex-wrap: wrap;
+         align-items: center;
+         margin-left: 0;
+      }
+
+      .filter {
+         display: inline;
+         color: black !important;
+         text-align: center;
+         margin-right: 2rem;
+         padding-left: 0;
+         margin-left: 0;
+         margin-top: 2rem;
+         opacity: 0.7 !important;
+      }
+
+      .filter:hover a{
+         opacity: 1 !important;
+         cursor: pointer;
+      }
+
+      .filter p {
+         font-size: 0.8rem;
+      }
+      .text-info{
+         display: none;
+      }
+      .tax-toggle{
+         border : 1px solid black;
+         border-radius: 1rem;
+         height: 2.8rem;
+         padding: 0.8rem;
+         margin-left: 2rem;
+         display: flex;
+         align-items: center;
+      }
+      .collapse{
+         display: inline;
+      }
+      .container-fluid .btn-toggle{
+       background-color:rgb(204, 198, 198) !important;
+
+      margin-right: 5px !important;
+      margin-top: 10px !important;
+       /* margin-left: rem; */
+       
+            }
+      filter div a{
+          all: unset;
+         cursor: pointer;
+      }
+      
+   </style>
+
+   <div class="filters" >
+      <div class="filter ">
+         <div><a href="/listings/Trending" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-fire"></i></div>
+         <p>Trending</p>
+         </a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Rooms" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-bed"></i></div>
+         <p>Rooms</p>
+   </a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Iconic" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-mountain-city"></i></div>
+         <p>Iconic Cities</p>
+         </a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Mountains" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-mountain"></i></div>
+         <p>Mountains</p>
+         </a>
+      </div>
+     <div class="filter ">
+         <div><a href="/listings/Castles" style="text-decoration: none; color: black;">
+            <i class="fa-brands fa-fort-awesome"></i></div>
+         <p>Castles</p>
+         </a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Amazing-pools" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-person-swimming"></i></div>
+         <p>Amazing Pools</p>
+         </a>
+      </div>
+        <div class="filter ">
+         <div><a href="/listings/Camping" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-campground"></i></div>
+         <p>Camping</p>
+         </a>
+      </div>
+      <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+      <div class="bg-light p-2 filters" >
+      <div class="filter ">
+         <div><a href="/listings/Farms" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-cow"></i></div>
+         <p>Farms</p>
+         </a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Arctic" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-snowflake"></i></div>
+         <p>Arctic</p></a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Dome" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-igloo"></i></div>
+         <p>Dome</p>
+         </a>
+      </div>
+      <div class="filter ">
+         <div><a href="/listings/Boats" style="text-decoration: none; color: black;">
+            <i class="fa-solid fa-ship"></i></div>
+         <p>Boats</p></a>
+      </div>
+        </div>
+      </div> 
+      <nav class="navbar navbar-dark bg-light collap mr-5 ">
+   <div class="container-fluid p-2">
+    <button class="navbar-toggler bg-dark btn-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" 
+    aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  </nav>
+       <div class="tax-toggle">
+         <div class="form-check-reverse form-switch">
+            <input class="form-check-input" 
+            type="checkbox" 
+            role="switch" 
+            id="flexSwitchCheckDefault"/>
+            <label class="form-check-label" for="felxSwitchCheckDefault">
+              Display total after taxes</label>
+         </div> 
+</div>
+</div>
+   
+   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% for(let listing of all_listings){ %>
+         <a href="/listings/<%=listing._id%>" class="listing-link">
+            <div class="card listing-card">
+               <img src="<%= listing.image.url %>" class="card-img-top" alt="image" style="height: 18rem;">
+               <div class="card-img-overlay">abcd</div>
+               <div class="card-body">
+                  <p class="card-text">
+                     <b>
+                        <%=listing.title%>
+                     </b> <br>
+                     &#8377;<%= Number(listing.price).toLocaleString("en-In")%>/night
+                     <i class="text-info"> &nbsp; &nbsp;+18% GST</i>
+                  </p>
+               </div>
+            </div>
+         </a>
+         <% } %>
+   </div>
+
+   <script>
+   let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+   taxSwitch.addEventListener("click", ()=>{
+      let taxInfo = document.getElementsByClassName("text-info");
+      for(info of taxInfo){
+        if(info.style.display != "inline"){
+         info.style.display = "inline";
+         }
+         else{
+            info.style.display = "none";
+         }
+      }
+   })
+   </script>
